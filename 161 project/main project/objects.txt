@@ -1,0 +1,23 @@
+FuD's
+Table
+books
+bed
+cabinet
+aircon
+window
+door
+picture
+---------
+
+Ed's
+poster
+cellphone
+pen
+papers
+pillow
+folded clothes
+shelf
+---------
+
+Both
+pc
