@@ -37,6 +37,7 @@
 		<script src="build/three.js"></script>
 
 		<script src="js/controls/TrackballControls.js"></script>
+		<script src="js/modifiers/SubdivisionModifier.js"></script>
 
 		<script src="js/Detector.js"></script>
 		<script src="js/libs/stats.min.js"></script>
@@ -401,24 +402,98 @@
 				var pictureframe_posy = 0;
 				var pictureframe_posz = 300;
 
+				//PICTURE FRAME
 				var pfFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/pictureframe_texture.jpg') } );
 				var pfRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
 			    var pfTextureArray = [pfRestTexture, pfRestTexture, pfRestTexture,  pfRestTexture, pfFrontTexture, pfFrontTexture];	  
 			    var pfTextureMesh = new THREE.MeshFaceMaterial( pfTextureArray );
-
-				//PICTURE FRAME
+				
 				object = new THREE.Mesh( new THREE.BoxGeometry( pictureframe_dimx, pictureframe_dimy, pictureframe_dimz), pfTextureMesh);
 				object.position.set( pictureframe_posx, pictureframe_posy, pictureframe_posz);
 				scene.add( object );				
 
+				//PICTURE
 				var pFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/picture_texture.jpg') } );
 				var pRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
 			    var pTextureArray = [pRestTexture, pRestTexture, pRestTexture,  pRestTexture, pFrontTexture, pRestTexture];	  
-			    var pTextureMesh = new THREE.MeshFaceMaterial( pTextureArray );	
-
-				//PICTURE
+			    var pTextureMesh = new THREE.MeshFaceMaterial( pTextureArray );
+				
 				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 30, 1), pTextureMesh);
 				object.position.set( pictureframe_posx, pictureframe_posy, pictureframe_posz+3);
+				scene.add( object );
+
+
+				var monitor_dimx = 50;
+				var monitor_dimy = 50;
+				var monitor_dimz = 3;
+
+				var monitor_posx = 200;
+				var monitor_posy = 0;
+				var monitor_posz = 300;
+
+				//MONITOR
+				var monitorFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/monitor_texture.jpg') } );
+				var monitorBackTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/monitorback_texture.jpg') } );
+				var monitorRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
+			    var monitorTextureArray = [monitorRestTexture, monitorRestTexture, monitorRestTexture,  monitorRestTexture, monitorFrontTexture, monitorBackTexture];	  
+			    var monitorTextureMesh = new THREE.MeshFaceMaterial( monitorTextureArray );
+				
+				object = new THREE.Mesh( new THREE.BoxGeometry( monitor_dimx, monitor_dimy, monitor_dimz), monitorTextureMesh);
+				object.position.set( monitor_posx, monitor_posy, monitor_posz);
+				scene.add( object );
+
+				//MONITOR STAND	
+				var map = new THREE.TextureLoader().load( 'owntextures/bedside_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 60, 3, 20), material );
+				object.position.set( monitor_posx, monitor_posy-26.5, monitor_posz );
+				scene.add( object );
+
+
+				//DESKTOP CASE
+				var desktopFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/desktopfront_texture.jpg') } );
+				var desktopSideTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/desktopside_texture.png') } );
+				var desktopBackTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/desktopback_texture.jpeg') } );
+				var desktopTopTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/desktoptop_texture.jpg') } );
+				var desktopRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/desktopother_texture.jpg') } );			  
+			    var desktopTextureArray = [desktopRestTexture, desktopSideTexture, desktopTopTexture,  desktopRestTexture, desktopFrontTexture, desktopBackTexture];	  
+			    var desktopTextureMesh = new THREE.MeshFaceMaterial( desktopTextureArray );
+				
+				object = new THREE.Mesh( new THREE.BoxGeometry( 20, 45, 50), desktopTextureMesh);
+				object.position.set( monitor_posx+50, monitor_posy-5, monitor_posz);
+				scene.add( object );
+
+
+				//MOUSE
+				var mouseTopTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/mousetop_texture.png') } );
+				var mouseFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/monitor_texture.jpg') } );
+				var mouseBackTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/monitor_texture.jpg') } );
+				var mouseRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
+			    var mouseTextureArray = [mouseRestTexture, mouseTopTexture, mouseTopTexture,  mouseRestTexture, mouseFrontTexture, mouseBackTexture];	  
+			    var mouseTextureMesh = new THREE.MeshFaceMaterial( mouseTextureArray );
+				
+			 	// var modifier = new THREE.SubdivisionModifier(2);
+				// var holder =  new THREE.BoxGeometry( 4, 1, 6);
+				// modifier.modify(holder);
+				// object = new THREE.Mesh( holder, mouseTextureMesh);
+				object = new THREE.Mesh( new THREE.BoxGeometry( 8, 0.5, 10), mouseTextureMesh);
+				
+				object.position.set( monitor_posx+40, monitor_posy-26, monitor_posz+50);
+				scene.add( object );
+
+				//KEYBOARD
+				var keyboardTopTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/keyboardtop_texture.jpg') } );
+				var keyboardFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/keyboardfront_texture.jpg') } );
+				var keyboardBackTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/monitor_texture.jpg') } );
+				var keyboardRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
+			    var keyboardTextureArray = [keyboardRestTexture, keyboardRestTexture, keyboardTopTexture,  keyboardRestTexture, keyboardFrontTexture, keyboardBackTexture];	  
+			    var keyboardTextureMesh = new THREE.MeshFaceMaterial( keyboardTextureArray );
+				
+				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 2, 15), keyboardTextureMesh);
+				object.position.set( monitor_posx, monitor_posy-26, monitor_posz+50);
 				scene.add( object );
 
 
@@ -465,15 +540,9 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 				container = document.getElementById( 'container' );
-				container.appendChild( renderer.domElement );
-
-				stats = new Stats();
-				container.appendChild( stats.dom );
-
-				//
+				container.appendChild( renderer.domElement );			
 
 				window.addEventListener( 'resize', onWindowResize, false );
-				//
 
 				render();
 
@@ -500,10 +569,7 @@
 			}
 
 			function render() {
-
 				renderer.render( scene, camera );
-				stats.update();
-
 			}
 
 
