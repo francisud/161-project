@@ -66,36 +66,51 @@
 				light.position.set( 0, 1, 0 );
 				scene.add( light );
 
+
+				var table_dimx = 100;
+				var table_dimy = 10;
+				var table_dimz = 200;	
+				var table_posx = -200;
+				var table_posy = 0;
+				var table_posz = 0;							
+
 				var map = new THREE.TextureLoader().load( 'owntextures/table_texture3.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
 				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );				
 
 				//TABLE
-				object = new THREE.Mesh( new THREE.BoxGeometry( 100, 10, 200), material );
-				object.position.set( -200, 0, 0 );
+				object = new THREE.Mesh( new THREE.BoxGeometry( table_dimx, table_dimy, table_dimz), material );
+				object.position.set( table_posx, table_posy, table_posz );
 				scene.add( object );
 
 				//TABLE LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( -240, -40, 75 );
+				object.position.set( table_posx-40, table_posy-40, table_posz+75 );
 				scene.add( object );
 
 				//TABLE LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( -160, -40, 75 );
+				object.position.set( table_posx+40, table_posy-40, table_posz+75 );
 				scene.add( object );
 
 				//TABLE LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( -240, -40, -75 );
+				object.position.set( table_posx-40, table_posy-40, table_posz-75 );
 				scene.add( object );
 
 				//TABLE LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( -160, -40, -75 );
+				object.position.set( table_posx+40, table_posy-40, table_posz-75 );
 				scene.add( object );
 
+
+				var book_dimx = 30;
+				var book_dimy = 8;
+				var book_dimz = 49.9;
+				var book_posx = -60;
+				var book_posy = 0;
+				var book_posz = 0;
 
 				var map = new THREE.TextureLoader().load( 'owntextures/book_texture.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -103,8 +118,8 @@
 				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
 				//BOOK
-				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 8, 49.9), material );
-				object.position.set( -60, 0, 0 );
+				object = new THREE.Mesh( new THREE.BoxGeometry( book_dimx, book_dimy, book_dimz), material );
+				object.position.set( book_posx, book_posy, book_posz);
 				scene.add( object );
 
 				var map = new THREE.TextureLoader().load( 'owntextures/bookspine_texture.jpg' );
@@ -114,7 +129,12 @@
 
 				//BOOK SPINE
 				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 8, 50), material );
-				object.position.set( -75.5, 0, 0 );
+				object.position.set( book_posx-15.5, book_posy, book_posz);
+				scene.add( object );
+
+				//BOOK BACKCOVER
+				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 0.1, 50), material );
+				object.position.set( book_posx, book_posy-4, book_posz);
 				scene.add( object );
 
 
@@ -125,20 +145,26 @@
 
 				//BOOK SIDES
 				object = new THREE.Mesh( new THREE.BoxGeometry( 0.1, 7.5, 50), material );
-				object.position.set( -45, 0, 0 );
+				object.position.set( book_posx+15, book_posy, book_posz);
 				scene.add( object );
 
 				//BOOK SIDES
 				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 7.5, 0.1), material );
-				object.position.set( -60, 0, -24.95);
+				object.position.set( book_posx, book_posy, book_posz-24.95);
 				scene.add( object );
 
 				//BOOK SIDES
 				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 7.5, 0.1), material );
-				object.position.set( -60, 0, 24.95);
+				object.position.set( book_posx, book_posy, book_posz+24.95);
 				scene.add( object );
 
 
+				var bed_dimx = 149;
+				var bed_dimy = 10;
+				var bed_dimz = 249;
+				var bed_posx = 100;
+				var bed_posy = 0;
+				var bed_posz = 0;
 
 				var map = new THREE.TextureLoader().load( 'owntextures/bedsheet_texture.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -146,8 +172,8 @@
 				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );				
 
 				//BED SHEET
-				object = new THREE.Mesh( new THREE.BoxGeometry( 149, 10, 249), material );
-				object.position.set( 100, 0, 0 );
+				object = new THREE.Mesh( new THREE.BoxGeometry( bed_dimx, bed_dimy, bed_dimz), material );
+				object.position.set( bed_posx, bed_posy, bed_posz);
 				scene.add( object );
 
 				var map = new THREE.TextureLoader().load( 'owntextures/bedside_texture.jpg' );
@@ -157,22 +183,22 @@
 
 				//BED SIDE COVER
 				object = new THREE.Mesh( new THREE.BoxGeometry( 151, 10, 1), material );
-				object.position.set( 100, 0, 125 );
+				object.position.set( bed_posx, bed_posy, bed_posz+125 );
 				scene.add( object );
 
 				//BED SIDE COVER
-				object = new THREE.Mesh( new THREE.BoxGeometry( 150, 10, 1), material );
-				object.position.set( 100, 0, -125 );
-				scene.add( object );
-
-				//BED SIDE COVER
-				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 10, 249), material );
-				object.position.set( 175, 0, 0 );
+				object = new THREE.Mesh( new THREE.BoxGeometry( 151, 10, 1), material );
+				object.position.set( bed_posx, bed_posy, bed_posz-125 );
 				scene.add( object );
 
 				//BED SIDE COVER
 				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 10, 249), material );
-				object.position.set( 25, 0, 0 );
+				object.position.set( bed_posx+75, bed_posy, bed_posz);
+				scene.add( object );
+
+				//BED SIDE COVER
+				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 10, 249), material );
+				object.position.set( bed_posx-75, bed_posy, bed_posz);
 				scene.add( object );
 
 				var map = new THREE.TextureLoader().load( 'owntextures/bedwood_texture.jpg' );
@@ -182,34 +208,37 @@
 
 				//BED WOOD
 				object = new THREE.Mesh( new THREE.BoxGeometry( 150, 10, 250), material );
-				object.position.set( 100, -10, 0 );
+				object.position.set( bed_posx, bed_posy-10, bed_posz);
 				scene.add( object );
 
 				//BED WOOD LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 15, 75, 15), material );
-				object.position.set( 40, -50, 100 );
+				object.position.set( bed_posx-60, bed_posy-50, bed_posz+100 );
 				scene.add( object );
 
 				//BED WOOD LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 15, 75, 15), material );
-				object.position.set( 160, -50, 100 );
+				object.position.set( bed_posx+60, bed_posy-50, bed_posz+100 );
 				scene.add( object );
 
 				//BED WOOD LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 15, 75, 15), material );
-				object.position.set( 40, -50, -100 );
+				object.position.set( bed_posx-60, bed_posy-50, bed_posz-100 );
 				scene.add( object );
 
 				//BED WOOD LEG
 				object = new THREE.Mesh( new THREE.BoxGeometry( 15, 75, 15), material );
-				object.position.set( 160, -50, -100 );
+				object.position.set( bed_posx+60, bed_posy-50, bed_posz-100 );
 				scene.add( object );
-
 
 				//BED HEAD PART
 				object = new THREE.Mesh( new THREE.BoxGeometry( 150, 100, 15), material );
-				object.position.set( 100, 35, -132.5 );
+				object.position.set( bed_posx, bed_posy+35, bed_posz-132.5 );
 				scene.add( object );
+
+
+
+
 
 
 				var map = new THREE.TextureLoader().load( 'owntextures/cabinethandle_texture.jpg' );
@@ -259,20 +288,90 @@
 				scene.add( object );
 
 
-				//AIRCON
-				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 50, 50), material );
+				var map = new THREE.TextureLoader().load( 'owntextures/aircon_texture.jpg' );
+				// map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				// map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				//AIRCON FRONT PANEL
+				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 100, 0.1), material );
+				object.position.set( 500, 0, 24.99 );
+				scene.add( object );
+
+				var map = new THREE.TextureLoader().load( 'owntextures/airconside_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				//AIRCON SIDES
+				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 100, 50), material );
 				object.position.set( 500, 0, 0 );
 				scene.add( object );
 
+
+				var map = new THREE.TextureLoader().load( 'owntextures/windowglass_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
 				//WINDOW
-				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 75, 1), material );
+				object = new THREE.Mesh( new THREE.BoxGeometry( 74, 74, 0.1), material );
 				object.position.set( -200, 0, 300 );
 				scene.add( object );
 
+				var map = new THREE.TextureLoader().load( 'owntextures/windowwood_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				//WINDOW WOOD
+				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 5, 2), material );
+				object.position.set( -200, 35.5, 300 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 5, 2), material );
+				object.position.set( -200, -35.5, 300 );
+				scene.add( object );				
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 5, 66, 2), material );
+				object.position.set( -235, 0, 300 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 5, 66, 2), material );
+				object.position.set( -165, 0, 300 );
+				scene.add( object );
+
+
+				var map = new THREE.TextureLoader().load( 'owntextures/windowwood_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
 				//DOOR
 				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 140, 1), material );
 				object.position.set( -60, 0, 300 );
+				scene.add( object );
+
+				var map = new THREE.TextureLoader().load( 'owntextures/doordesign_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				//DOOR DESIGN
+				object = new THREE.Mesh( new THREE.BoxGeometry( 76, 6, 3), material );
+				object.position.set( -60, 67.5, 300 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 76, 6, 3), material );
+				object.position.set( -60, -67.5, 300 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 6, 129, 3), material );
+				object.position.set( -95, 0, 300 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 6, 129, 3), material );
+				object.position.set( -25, 0, 300 );
 				scene.add( object );
 
 				//DOOR KNOB
@@ -281,11 +380,20 @@
 				scene.add( object );
 
 
+				var map = new THREE.TextureLoader().load( 'owntextures/pictureframe_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
 				//PICTURE FRAME
 				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 50, 3), material );
 				object.position.set( 100, 0, 300 );
 				scene.add( object );
+
+				var map = new THREE.TextureLoader().load( 'owntextures/picture_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
 				//PICTURE
 				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 30, 1), material );
