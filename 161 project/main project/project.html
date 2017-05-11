@@ -237,9 +237,32 @@
 				scene.add( object );
 
 
+				var cabinet_dimx = 150;
+				var cabinet_dimy = 200;
+				var cabinet_dimz = 100;
+				var cabinet_posx = 300;
+				var cabinet_posy = 0;
+				var cabinet_posz = 0;
 
+				var map = new THREE.TextureLoader().load( 'owntextures/cabinet_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
+				//CABINET
+				object = new THREE.Mesh( new THREE.BoxGeometry( cabinet_dimx, cabinet_dimy, cabinet_dimz), material );
+				object.position.set( cabinet_posx, cabinet_posy, cabinet_posz);
+				scene.add( object );
 
+				var map = new THREE.TextureLoader().load( 'owntextures/cabinetdoor_texture.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				//CABINET FRONT
+				object = new THREE.Mesh( new THREE.BoxGeometry( cabinet_dimx, cabinet_dimy, 1), material );
+				object.position.set( cabinet_posx, cabinet_posy, cabinet_posz+50.5 );
+				scene.add( object );
 
 				var map = new THREE.TextureLoader().load( 'owntextures/cabinethandle_texture.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -248,75 +271,58 @@
 
 				//CABINET HANDLE
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 80.5, 20), material );
-				object.position.set( 305, 42, 60.5 );
+				object.position.set( cabinet_posx+5, cabinet_posy+42, cabinet_posz+60.5 );
 				scene.add( object );
 
 				//CABINET HANDLE
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 80.5, 20), material );
-				object.position.set( 294, 42, 60.5 );
+				object.position.set( cabinet_posx-6, cabinet_posy+42, cabinet_posz+60.5 );
 				scene.add( object );
 
 				//CABINET HANDLE
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 80.5, 20), material );
-				object.position.set( 305, -39.5, 60.5 );
+				object.position.set( cabinet_posx+5, cabinet_posy-39.5, cabinet_posz+60.5 );
 				scene.add( object );
 
 				//CABINET HANDLE
 				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 80.5, 20), material );
-				object.position.set( 294, -39.5, 60.5 );
+				object.position.set( cabinet_posx-6, cabinet_posy-39.5, cabinet_posz+60.5 );
 				scene.add( object );
 
 
-				var map = new THREE.TextureLoader().load( 'owntextures/cabinetdoor_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+				var aircon_dimx = 50;
+				var aircon_dimy = 100;
+				var aircon_dimz = 50;
+				var aircon_posx = 500;
+				var aircon_posy = 0;
+				var aircon_posz = 0;
 
-				//CABINET FRONT
-				object = new THREE.Mesh( new THREE.BoxGeometry( 150, 200, 1), material );
-				object.position.set( 300, 0, 50.5 );
-				scene.add( object );
+				var airconFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/aircon_texture.jpg') } );
+				var airconRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/airconside_texture.jpg') } );			  
+			    var airconTextureArray = [airconRestTexture, airconRestTexture, airconRestTexture,  airconRestTexture, airconFrontTexture, airconRestTexture];	  
+			    var airconTextureMesh = new THREE.MeshFaceMaterial( airconTextureArray );
 
-				var map = new THREE.TextureLoader().load( 'owntextures/cabinet_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
-
-				//CABINET
-				object = new THREE.Mesh( new THREE.BoxGeometry( 150, 200, 100), material );
-				object.position.set( 300, 0, 0 );
+				//AIRCON
+				object = new THREE.Mesh( new THREE.BoxGeometry( aircon_dimx, aircon_dimy, aircon_dimz), airconTextureMesh);
+				object.position.set( aircon_posx, aircon_posy, aircon_posz);
 				scene.add( object );
 
 
-				var map = new THREE.TextureLoader().load( 'owntextures/aircon_texture.jpg' );
-				// map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				// map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
-
-				//AIRCON FRONT PANEL
-				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 100, 0.1), material );
-				object.position.set( 500, 0, 24.99 );
-				scene.add( object );
-
-				var map = new THREE.TextureLoader().load( 'owntextures/airconside_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
-
-				//AIRCON SIDES
-				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 100, 50), material );
-				object.position.set( 500, 0, 0 );
-				scene.add( object );
-
+				var windowglass_dimx = 74;
+				var windowglass_dimy = 74;
+				var windowglass_dimz = 0.1;
+				var windowglass_posx = -200;
+				var windowglass_posy = 0;
+				var windowglass_posz = 300;
 
 				var map = new THREE.TextureLoader().load( 'owntextures/windowglass_texture.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
 				map.anisotropy = 16;
 				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
-				//WINDOW
-				object = new THREE.Mesh( new THREE.BoxGeometry( 74, 74, 0.1), material );
-				object.position.set( -200, 0, 300 );
+				//WINDOW GLASS
+				object = new THREE.Mesh( new THREE.BoxGeometry( windowglass_dimx, windowglass_dimy, windowglass_dimz), material );
+				object.position.set( windowglass_posx, windowglass_posy, windowglass_posz);
 				scene.add( object );
 
 				var map = new THREE.TextureLoader().load( 'owntextures/windowwood_texture.jpg' );
@@ -326,20 +332,28 @@
 
 				//WINDOW WOOD
 				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 5, 2), material );
-				object.position.set( -200, 35.5, 300 );
+				object.position.set( windowglass_posx, windowglass_posy+35.5, windowglass_posz );
 				scene.add( object );
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 5, 2), material );
-				object.position.set( -200, -35.5, 300 );
+				object.position.set( windowglass_posx, windowglass_posy-35.5, windowglass_posz );
 				scene.add( object );				
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( 5, 66, 2), material );
-				object.position.set( -235, 0, 300 );
+				object.position.set( windowglass_posx-35, windowglass_posy, windowglass_posz );
 				scene.add( object );
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( 5, 66, 2), material );
-				object.position.set( -165, 0, 300 );
+				object.position.set( windowglass_posx+35, windowglass_posy, windowglass_posz );
 				scene.add( object );
+
+
+				var door_dimx = 75;
+				var door_dimy = 140;
+				var door_dimz = 1;
+				var door_posx = -60;
+				var door_posy = 0;
+				var door_posz = 300;
 
 
 				var map = new THREE.TextureLoader().load( 'owntextures/windowwood_texture.jpg' );
@@ -348,8 +362,8 @@
 				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
 				//DOOR
-				object = new THREE.Mesh( new THREE.BoxGeometry( 75, 140, 1), material );
-				object.position.set( -60, 0, 300 );
+				object = new THREE.Mesh( new THREE.BoxGeometry( door_dimx, door_dimy, door_dimz), material );
+				object.position.set( door_posx, door_posy, door_posz );
 				scene.add( object );
 
 				var map = new THREE.TextureLoader().load( 'owntextures/doordesign_texture.jpg' );
@@ -359,45 +373,52 @@
 
 				//DOOR DESIGN
 				object = new THREE.Mesh( new THREE.BoxGeometry( 76, 6, 3), material );
-				object.position.set( -60, 67.5, 300 );
+				object.position.set( door_posx, door_posy+67.5, door_posz );
 				scene.add( object );
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( 76, 6, 3), material );
-				object.position.set( -60, -67.5, 300 );
+				object.position.set( door_posx, door_posy-67.5, door_posz );
 				scene.add( object );
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( 6, 129, 3), material );
-				object.position.set( -95, 0, 300 );
+				object.position.set( door_posx-35, door_posy, door_posz );
 				scene.add( object );
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( 6, 129, 3), material );
-				object.position.set( -25, 0, 300 );
+				object.position.set( door_posx+35, door_posy, door_posz );
 				scene.add( object );
 
 				//DOOR KNOB
 				object = new THREE.Mesh( new THREE.SphereGeometry( 5, 32, 32), material );
-				object.position.set( -85, 0, 300 );
+				object.position.set( door_posx-15, door_posy, door_posz );
 				scene.add( object );
 
 
-				var map = new THREE.TextureLoader().load( 'owntextures/pictureframe_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+				var pictureframe_dimx = 50;
+				var pictureframe_dimy = 50;
+				var pictureframe_dimz = 3;
+				var pictureframe_posx = 100;
+				var pictureframe_posy = 0;
+				var pictureframe_posz = 300;
+
+				var pfFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/pictureframe_texture.jpg') } );
+				var pfRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
+			    var pfTextureArray = [pfRestTexture, pfRestTexture, pfRestTexture,  pfRestTexture, pfFrontTexture, pfFrontTexture];	  
+			    var pfTextureMesh = new THREE.MeshFaceMaterial( pfTextureArray );
 
 				//PICTURE FRAME
-				object = new THREE.Mesh( new THREE.BoxGeometry( 50, 50, 3), material );
-				object.position.set( 100, 0, 300 );
-				scene.add( object );
+				object = new THREE.Mesh( new THREE.BoxGeometry( pictureframe_dimx, pictureframe_dimy, pictureframe_dimz), pfTextureMesh);
+				object.position.set( pictureframe_posx, pictureframe_posy, pictureframe_posz);
+				scene.add( object );				
 
-				var map = new THREE.TextureLoader().load( 'owntextures/picture_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+				var pFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/picture_texture.jpg') } );
+				var pRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );			  
+			    var pTextureArray = [pRestTexture, pRestTexture, pRestTexture,  pRestTexture, pFrontTexture, pRestTexture];	  
+			    var pTextureMesh = new THREE.MeshFaceMaterial( pTextureArray );	
 
 				//PICTURE
-				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 30, 1), material );
-				object.position.set( 100, 0, 303 );
+				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 30, 1), pTextureMesh);
+				object.position.set( pictureframe_posx, pictureframe_posy, pictureframe_posz+3);
 				scene.add( object );
 
 
