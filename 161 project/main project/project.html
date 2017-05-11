@@ -36,6 +36,7 @@
 
 		<script src="build/three.js"></script>
 
+		<script src="js/controls/DragControls.js"></script>
 		<script src="js/controls/TrackballControls.js"></script>
 		<script src="js/modifiers/SubdivisionModifier.js"></script>
 
@@ -47,10 +48,9 @@
 			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			var container, stats;
-
 			var camera, controls, scene, renderer;
-
 			var cross;
+			var objects = [];
 
 			init();
 			animate();
@@ -78,33 +78,49 @@
 				var map = new THREE.TextureLoader().load( 'owntextures/table_texture3.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
 				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );				
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
-				//TABLE
-				object = new THREE.Mesh( new THREE.BoxGeometry( table_dimx, table_dimy, table_dimz), material );
-				object.position.set( table_posx, table_posy, table_posz );
-				scene.add( object );
+				var table = new THREE.BoxGeometry( table_dimx, table_dimy, table_dimz);
+				var tableleg1 = new THREE.BoxGeometry( 10, 75, 10);
+				var tableleg2 = new THREE.BoxGeometry( 10, 75, 10);
+				var tableleg3 = new THREE.BoxGeometry( 10, 75, 10);
+				var tableleg4 = new THREE.BoxGeometry( 10, 75, 10);
 
-				//TABLE LEG
-				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( table_posx-40, table_posy-40, table_posz+75 );
-				scene.add( object );
+				var geometry = new THREE.Geometry();
 
-				//TABLE LEG
-				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( table_posx+40, table_posy-40, table_posz+75 );
-				scene.add( object );
+				var tableMesh = new THREE.Mesh(table);
+				tableMesh.position.set( table_posx, table_posy, table_posz );
 
-				//TABLE LEG
-				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( table_posx-40, table_posy-40, table_posz-75 );
-				scene.add( object );
+				var tableleg1Mesh = new THREE.Mesh(tableleg1);
+				tableleg1Mesh.position.set( table_posx-40, table_posy-40, table_posz+75 );
 
-				//TABLE LEG
-				object = new THREE.Mesh( new THREE.BoxGeometry( 10, 75, 10), material );
-				object.position.set( table_posx+40, table_posy-40, table_posz-75 );
-				scene.add( object );
+				var tableleg2Mesh = new THREE.Mesh(tableleg1);
+				tableleg2Mesh.position.set( table_posx+40, table_posy-40, table_posz+75 );
 
+				var tableleg3Mesh = new THREE.Mesh(tableleg1);
+				tableleg3Mesh.position.set( table_posx-40, table_posy-40, table_posz-75 );
+
+				var tableleg4Mesh = new THREE.Mesh(tableleg1);
+				tableleg4Mesh.position.set( table_posx+40, table_posy-40, table_posz-75 );
+
+				tableMesh.updateMatrix();
+				geometry.merge(tableMesh.geometry, tableMesh.matrix);
+
+				tableleg1Mesh.updateMatrix();
+				geometry.merge(tableleg1Mesh.geometry, tableleg1Mesh.matrix);
+
+				tableleg2Mesh.updateMatrix(); // as needed
+				geometry.merge(tableleg2Mesh.geometry, tableleg2Mesh.matrix);
+
+				tableleg3Mesh.updateMatrix(); // as needed
+				geometry.merge(tableleg3Mesh.geometry, tableleg3Mesh.matrix);
+
+				tableleg4Mesh.updateMatrix(); // as needed
+				geometry.merge(tableleg4Mesh.geometry, tableleg4Mesh.matrix);
+
+				var mesh = new THREE.Mesh(geometry, material);
+				scene.add(mesh);
+				objects.push(mesh);
 
 				var book_dimx = 30;
 				var book_dimy = 8;
@@ -535,12 +551,16 @@
 
 				// renderer
 
-				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
 				container = document.getElementById( 'container' );
-				container.appendChild( renderer.domElement );			
+				container.appendChild( renderer.domElement );
+
+				var dragControls = new THREE.DragControls( objects, camera, renderer.domElement );
+				dragControls.addEventListener( 'dragstart', function ( event ) { controls.enabled = false; } );
+				dragControls.addEventListener( 'dragend', function ( event ) { controls.enabled = true; } );			
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -564,6 +584,7 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
+				render();
 				controls.update();
 
 			}
