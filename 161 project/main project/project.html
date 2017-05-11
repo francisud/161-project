@@ -68,13 +68,68 @@
 				scene.add( light );
 
 				/*TABLE*/
-
 				var table_dimx = 100;
 				var table_dimy = 10;
 				var table_dimz = 200;	
 				var table_posx = -200;
-				var table_posy = 0;
-				var table_posz = 0;							
+				var table_posy = 30;
+				var table_posz = -150;
+
+				var map = new THREE.TextureLoader().load( 'owntextures/table_texture3.jpg' );
+				map.wrapS = map.wrapT = THREE.RepeatWrapping;
+				map.anisotropy = 16;
+				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
+
+				var table = new THREE.BoxGeometry( table_dimx, table_dimy, table_dimz);
+				var tableleg1 = new THREE.BoxGeometry( 10, 75, 10);
+				var tableleg2 = new THREE.BoxGeometry( 10, 75, 10);
+				var tableleg3 = new THREE.BoxGeometry( 10, 75, 10);
+				var tableleg4 = new THREE.BoxGeometry( 10, 75, 10);
+
+				var geometry = new THREE.Geometry();
+
+				var tableMesh = new THREE.Mesh(table);
+				tableMesh.position.set( table_posx, table_posy, table_posz );
+
+				var tableleg1Mesh = new THREE.Mesh(tableleg1);
+				tableleg1Mesh.position.set( table_posx-40, table_posy-40, table_posz+75 );
+
+				var tableleg2Mesh = new THREE.Mesh(tableleg2);
+				tableleg2Mesh.position.set( table_posx+40, table_posy-40, table_posz+75 );
+
+				var tableleg3Mesh = new THREE.Mesh(tableleg3);
+				tableleg3Mesh.position.set( table_posx-40, table_posy-40, table_posz-75 );
+
+				var tableleg4Mesh = new THREE.Mesh(tableleg4);
+				tableleg4Mesh.position.set( table_posx+40, table_posy-40, table_posz-75 );
+
+				tableMesh.updateMatrix();
+				geometry.merge(tableMesh.geometry, tableMesh.matrix);
+
+				tableleg1Mesh.updateMatrix();
+				geometry.merge(tableleg1Mesh.geometry, tableleg1Mesh.matrix);
+
+				tableleg2Mesh.updateMatrix();
+				geometry.merge(tableleg2Mesh.geometry, tableleg2Mesh.matrix);
+
+				tableleg3Mesh.updateMatrix();
+				geometry.merge(tableleg3Mesh.geometry, tableleg3Mesh.matrix);
+
+				tableleg4Mesh.updateMatrix();
+				geometry.merge(tableleg4Mesh.geometry, tableleg4Mesh.matrix);
+
+				var mesh = new THREE.Mesh(geometry, material);
+				scene.add(mesh);
+				objects.push(mesh);
+				/*TABLE*/
+
+				/*TABLE*/
+				var table_dimx = 100;
+				var table_dimy = 10;
+				var table_dimz = 200;	
+				var table_posx = -200;
+				var table_posy = 30;
+				var table_posz = 150;
 
 				var map = new THREE.TextureLoader().load( 'owntextures/table_texture3.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -123,21 +178,15 @@
 				scene.add(mesh);
 				objects.push(mesh);
 
-
-				// materials = [];
-				// materials.push( tree_obj.materials[0] );
-				// materials.push( material );
-				// mesh = new THREE.Mesh( new_geo, new THREE.MeshFaceMaterial( materials ) );
-
-				/*TABLE*/
+				mesh.rotation.y = (Math.PI / 2);
 
 				/*BOOK*/
 				var book_dimx = 30;
 				var book_dimy = 8;
 				var book_dimz = 49.9;
-				var book_posx = -60;
-				var book_posy = 0;
-				var book_posz = 0;
+				var book_posx = -200;
+				var book_posy = 39;
+				var book_posz = -100;
 
 				var bookTopTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/book_texture.jpg') } );			
 				var bookSpineTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/bookspine_texture.jpg') } );
@@ -155,9 +204,9 @@
 				var bed_dimx = 150;
 				var bed_dimy = 10;
 				var bed_dimz = 250;
-				var bed_posx = 100;
+				var bed_posx = 200;
 				var bed_posy = 0;
-				var bed_posz = 0;
+				var bed_posz = -210;
 
 				var bedsheet = new THREE.BoxGeometry( bed_dimx, bed_dimy, bed_dimz);
 				var bedwood = new THREE.BoxGeometry( 150, 10, 250);
@@ -227,9 +276,9 @@
 				var cabinet_dimx = 150;
 				var cabinet_dimy = 200;
 				var cabinet_dimz = 100;
-				var cabinet_posx = 300;
-				var cabinet_posy = 0;
-				var cabinet_posz = 0;
+				var cabinet_posx = 525;
+				var cabinet_posy = 50;
+				var cabinet_posz = -300;
 
 				var cabinet = new THREE.BoxGeometry( cabinet_dimx, cabinet_dimy, cabinet_dimz);
 				var cabinetFront = new THREE.BoxGeometry( cabinet_dimx, cabinet_dimy, 1);
@@ -291,7 +340,7 @@
 				var aircon_dimx = 50;
 				var aircon_dimy = 100;
 				var aircon_dimz = 50;
-				var aircon_posx = 500;
+				var aircon_posx = 570;
 				var aircon_posy = 0;
 				var aircon_posz = 0;
 
@@ -302,23 +351,26 @@
 
 				object = new THREE.Mesh( new THREE.BoxGeometry( aircon_dimx, aircon_dimy, aircon_dimz), airconTextureMesh);
 				object.position.set( aircon_posx, aircon_posy, aircon_posz);
+
+				object.rotation.y = -(Math.PI / 2);
+
 				scene.add( object );
 				objects.push(object);
 				/*AIRCON*/
 
 				/*WINDOW*/
-				var windowglass_dimx = 74;
-				var windowglass_dimy = 74;
+				var windowglass_dimx = 400;
+				var windowglass_dimy = 200;
 				var windowglass_dimz = 0.1;
-				var windowglass_posx = -200;
-				var windowglass_posy = 0;
-				var windowglass_posz = 300;
+				var windowglass_posx = 0;
+				var windowglass_posy = 100;
+				var windowglass_posz = -599;
 
 				var windowglass = new THREE.BoxGeometry( windowglass_dimx, windowglass_dimy, windowglass_dimz);
-				var windowwood1 = new THREE.BoxGeometry( 75, 5, 2);
-				var windowwood2 = new THREE.BoxGeometry( 75, 5, 2);
-				var windowwood3 = new THREE.BoxGeometry( 5, 66, 2);
-				var windowwood4 = new THREE.BoxGeometry( 5, 66, 2);
+				var windowwood1 = new THREE.BoxGeometry( 400, 5, 2);
+				var windowwood2 = new THREE.BoxGeometry( 400, 5, 2);
+				var windowwood3 = new THREE.BoxGeometry( 5, 200, 2);
+				var windowwood4 = new THREE.BoxGeometry( 5, 200, 2);
 
 				var geometry = new THREE.Geometry();
 
@@ -326,16 +378,16 @@
 				windowglassMesh.position.set( windowglass_posx, windowglass_posy, windowglass_posz);
 
 				var windowwood1Mesh = new THREE.Mesh(windowwood1);
-				windowwood1Mesh.position.set( windowglass_posx, windowglass_posy+35.5, windowglass_posz);
+				windowwood1Mesh.position.set( windowglass_posx, windowglass_posy+100, windowglass_posz);
 
 				var windowwood2Mesh = new THREE.Mesh(windowwood2);
-				windowwood2Mesh.position.set( windowglass_posx, windowglass_posy-35.5, windowglass_posz);
+				windowwood2Mesh.position.set( windowglass_posx, windowglass_posy-100, windowglass_posz);
 
 				var windowwood3Mesh = new THREE.Mesh(windowwood3);
-				windowwood3Mesh.position.set( windowglass_posx-35, windowglass_posy, windowglass_posz);
+				windowwood3Mesh.position.set( windowglass_posx-200, windowglass_posy, windowglass_posz);
 
 				var windowwood4Mesh = new THREE.Mesh(windowwood4);
-				windowwood4Mesh.position.set( windowglass_posx+35, windowglass_posy, windowglass_posz);
+				windowwood4Mesh.position.set( windowglass_posx+200, windowglass_posy, windowglass_posz);
 
 				windowglassMesh.updateMatrix();
 				geometry.merge(windowglassMesh.geometry, windowglassMesh.matrix);
@@ -358,17 +410,18 @@
 			    var windowTextureMesh = new THREE.MeshFaceMaterial( windowTextureArray );
 
 				var mesh = new THREE.Mesh(geometry, windowTextureArray);
+				mesh.rotation.y = Math.PI / 2;
+
 				scene.add(mesh);
 				objects.push(mesh);	
 				/*WINDOW*/
 
-				var door_dimx = 75;
-				var door_dimy = 140;
+				var door_dimx = 120;
+				var door_dimy = 220;
 				var door_dimz = 1;
-				var door_posx = -60;
-				var door_posy = 0;
-				var door_posz = 300;
-
+				var door_posx = 598;
+				var door_posy = 60;
+				var door_posz = 230;
 
 				var map = new THREE.TextureLoader().load( 'owntextures/windowwood_texture.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -380,40 +433,51 @@
 				object.position.set( door_posx, door_posy, door_posz );
 				scene.add( object );
 
+				object.rotation.y = Math.PI / 2;
+
 				var map = new THREE.TextureLoader().load( 'owntextures/doordesign_texture.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
 				map.anisotropy = 16;
 				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
 
 				//DOOR DESIGN
-				object = new THREE.Mesh( new THREE.BoxGeometry( 76, 6, 3), material );
-				object.position.set( door_posx, door_posy+67.5, door_posz );
+				object = new THREE.Mesh( new THREE.BoxGeometry( 110, 10, 3), material );
+				object.position.set( door_posx, door_posy+104, door_posz );
 				scene.add( object );
 
-				object = new THREE.Mesh( new THREE.BoxGeometry( 76, 6, 3), material );
-				object.position.set( door_posx, door_posy-67.5, door_posz );
+				object.rotation.y = Math.PI / 2;
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 110, 10, 3), material );
+				object.position.set( door_posx, door_posy-104, door_posz );
 				scene.add( object );
 
-				object = new THREE.Mesh( new THREE.BoxGeometry( 6, 129, 3), material );
-				object.position.set( door_posx-35, door_posy, door_posz );
+				object.rotation.y = Math.PI / 2;
+
+				object = new THREE.Mesh( new THREE.BoxGeometry(9, 195, 3), material );
+				object.position.set( door_posx, door_posy, door_posz-55);
 				scene.add( object );
 
-				object = new THREE.Mesh( new THREE.BoxGeometry( 6, 129, 3), material );
-				object.position.set( door_posx+35, door_posy, door_posz );
+				object.rotation.y = Math.PI / 2;
+
+				object = new THREE.Mesh( new THREE.BoxGeometry(9, 195, 3), material );
+				object.position.set( door_posx, door_posy, door_posz+55);
 				scene.add( object );
+
+				object.rotation.y = Math.PI / 2;
 
 				//DOOR KNOB
-				object = new THREE.Mesh( new THREE.SphereGeometry( 5, 32, 32), material );
-				object.position.set( door_posx-15, door_posy, door_posz );
+				object = new THREE.Mesh( new THREE.SphereGeometry( 25, 160, 160), material );
+				object.position.set( door_posx, door_posy, door_posz );
 				scene.add( object );
 
+				object.rotation.y = Math.PI / 2;
 
 				var pictureframe_dimx = 50;
 				var pictureframe_dimy = 50;
 				var pictureframe_dimz = 3;
-				var pictureframe_posx = 100;
-				var pictureframe_posy = 0;
-				var pictureframe_posz = 300;
+				var pictureframe_posx = 200;
+				var pictureframe_posy = 150;
+				var pictureframe_posz = -350;
 
 				//PICTURE FRAME
 				var pfFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/pictureframe_texture.jpg') } );
@@ -440,9 +504,9 @@
 				var monitor_dimy = 50;
 				var monitor_dimz = 3;
 
-				var monitor_posx = 200;
-				var monitor_posy = 0;
-				var monitor_posz = 300;
+				var monitor_posx = 125;
+				var monitor_posy = 65;
+				var monitor_posz = 180;
 
 				//MONITOR
 				var monitorFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/monitor_texture.jpg') } );
@@ -510,11 +574,175 @@
 				scene.add( object );
 
 
+
+				//ED ADDITIONS 
+
+				var floor_posx = 0;
+				var floor_posy = -50;
+				var floor_posz = 0;
+
+				var backwall_posx = 0;
+				var backwall_posy = 100;
+				var backwall_posz = -350;
+
+				var sidewall_posx = 600;
+				var sidewall_posy = 100;
+				var sidewall_posz = 0;
+
+				var sidewall2_posx = -600;
+				var sidewall2_posy = 100;
+				var sidewall2_posz = 0;
+
+				//WALLS
+				var floorTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/floor.jpg') } );
+				var floorTextureArray = [floorTexture, floorTexture, floorTexture,  floorTexture, floorTexture, floorTexture];
+				var floorTextureMesh = new THREE.MeshFaceMaterial( floorTextureArray );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 1200, 1, 700), floorTextureMesh);
+				object.position.set( floor_posx, floor_posy, floor_posz );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 300, 700), floorTextureMesh);
+				object.position.set( sidewall_posx, sidewall_posy, sidewall_posz );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 1200, 300, 1), floorTextureMesh);
+				object.position.set( backwall_posx, backwall_posy, backwall_posz );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 300, 700), floorTextureMesh);
+				object.position.set( sidewall2_posx, sidewall2_posy, sidewall2_posz );
+				scene.add( object );
+
+				var cellphone_posx = -200;
+				var cellphone_posy = 35.55;
+				var cellphone_posz = -170;
+
+				//CELLPHONE
+				var phoneFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/phone.png') } );
+				var phoneRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/phoneside.png') } );
+			    var phoneTextureArray = [phoneRestTexture, phoneRestTexture, phoneFrontTexture,  phoneRestTexture, phoneRestTexture, phoneRestTexture];
+			    var phoneTextureMesh = new THREE.MeshFaceMaterial( phoneTextureArray );
+
+				
+				object = new THREE.Mesh( new THREE.BoxGeometry( 4, 1, 7), phoneTextureMesh);
+				object.position.set( cellphone_posx, cellphone_posy, cellphone_posz );
+				scene.add( object );
+
+				var papers_posx = -200;
+				var papers_posy = 35.55;
+				var papers_posz = -220;
+
+				//PAPERS
+				var papersFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/papers.jpg') } );
+				var papersBackTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/paperback.jpg') } );
+				var papersRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/paperside.jpg') } );
+			    var papersTextureArray = [papersRestTexture, papersRestTexture,  papersFrontTexture, papersBackTexture, papersRestTexture, papersRestTexture];
+			    var papersTextureMesh = new THREE.MeshFaceMaterial( papersTextureArray );
+
+				
+				object = new THREE.Mesh( new THREE.BoxGeometry( 20, 1, 30), papersTextureMesh);
+				object.position.set( papers_posx, papers_posy, papers_posz );
+				scene.add( object );
+
+				var poster_posx = -200;
+				var poster_posy = 50;
+				// var poster_posz = ;
+
+				//POSTER
+				var posterFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/poster.jpg') } );
+				var posterRestTexture = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('owntextures/paperback.jpg') } );
+			    var posterTextureArray = [posterRestTexture, posterRestTexture,  posterRestTexture, posterRestTexture, posterFrontTexture, posterRestTexture];
+			    var posterTextureMesh = new THREE.MeshFaceMaterial( posterTextureArray );
+
+			    object = new THREE.Mesh( new THREE.BoxGeometry( 300, 150, 1), posterTextureMesh);
+				object.position.set( poster_posx, poster_posy, backwall_posz+1 );
+				scene.add( object );
+
+				var pillow_posx = bed_posx;
+				var pillow_posy = bed_posy+10;
+				var pillow_posz = bed_posz-70;
+
+				//PILLOW
+				var pillowTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/pillow.jpg') } );
+				var pillowTextureArray = [pillowTexture, pillowTexture,  pillowTexture, pillowTexture, pillowTexture, pillowTexture];
+			    var pillowTextureMesh = new THREE.MeshFaceMaterial( pillowTextureArray );
+
+			    object = new THREE.Mesh( new THREE.BoxGeometry( 100, 10, 60), pillowTextureMesh);
+				object.position.set( pillow_posx, pillow_posy, pillow_posz );
+				scene.add( object );
+
+				var pencase_posx = -230;
+				var pencase_posy = 40;
+				var pencase_posz = -210;
+
+				//PENCASE
+				var pencaseFrontTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/pencase.jpg') } );
+				var pencaseSideTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/pencaseside.jpg') } );
+				var pencaseRestTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/phoneside.jpg') } );
+				var pencaseTopTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/zipper.jpg') } );				
+				var pencaseTextureArray = [pencaseSideTexture, pencaseSideTexture,  pencaseTopTexture, pencaseRestTexture, pencaseFrontTexture, pencaseFrontTexture];
+			    var pencaseTextureMesh = new THREE.MeshFaceMaterial( pencaseTextureArray );
+
+			    object = new THREE.Mesh( new THREE.BoxGeometry( 30, 10, 3), pencaseTextureMesh);
+				object.position.set( pencase_posx, pencase_posy, pencase_posz );
+				scene.add( object );
+
+				var shelf_posx = -200;
+				var shelf_posy = 200;
+				var shelf_posz = backwall_posz;
+				var shelf_dimx = 300;
+				var shelf_dimy = 75;
+				var shelf_dimz = 50;
+				var woodthickness = 5;
+
+				//SHELF
+				var shelfTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/cabinet_texture.jpg') } );
+				var shelfTextureArray = [shelfTexture, shelfTexture,  shelfTexture, shelfTexture, shelfTexture, shelfTexture];
+			    var shelfTextureMesh = new THREE.MeshFaceMaterial( shelfTextureArray );
+
+			    object = new THREE.Mesh( new THREE.BoxGeometry( shelf_dimx, shelf_dimy, woodthickness), shelfTextureMesh);
+				object.position.set( shelf_posx, shelf_posy, shelf_posz );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( shelf_dimx, woodthickness, shelf_dimz), shelfTextureMesh);
+				object.position.set( shelf_posx, shelf_posy-(shelf_dimy/2)+woodthickness/2, shelf_posz+(shelf_dimz/2)-woodthickness/2 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( shelf_dimx, woodthickness, shelf_dimz), shelfTextureMesh);
+				object.position.set( shelf_posx, shelf_posy+(shelf_dimy/2)-woodthickness/2, shelf_posz+(shelf_dimz/2)-woodthickness/2 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( woodthickness, shelf_dimy, shelf_dimz), shelfTextureMesh);
+				object.position.set( shelf_posx+(shelf_dimx/2)-woodthickness/2, shelf_posy, shelf_posz+(shelf_dimz/2)-woodthickness/2 );
+				scene.add( object );
+
+				object = new THREE.Mesh( new THREE.BoxGeometry( woodthickness, shelf_dimy, shelf_dimz), shelfTextureMesh);
+				object.position.set( shelf_posx-(shelf_dimx/2)+woodthickness/2, shelf_posy, shelf_posz+(shelf_dimz/2)-woodthickness/2 );
+				scene.add( object );
+
+				var clothes_posx = pillow_posx;
+				var clothes_posy = pillow_posy-5;
+				var clothes_posz = bed_posz+50;
+
+				//CLOTHES
+				var clothesTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/foldedclothes.jpg') } );
+				var clothesTextureArray = [clothesTexture, clothesTexture,  clothesTexture, clothesTexture, clothesTexture, clothesTexture];
+			    var clothesTextureMesh = new THREE.MeshFaceMaterial( clothesTextureArray );
+
+			    object = new THREE.Mesh( new THREE.BoxGeometry( 50, 5, 50), clothesTextureMesh);
+				object.position.set( clothes_posx, clothes_posy, clothes_posz );
+				scene.add( object );
+
+
 				/*--------------------------------------*/
 
 
-				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.z = 500;
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 5000 );
+				camera.position.x = 0;
+				camera.position.y = 300;
+				camera.position.z = 700;
+
 
 				controls = new THREE.TrackballControls( camera );
 
