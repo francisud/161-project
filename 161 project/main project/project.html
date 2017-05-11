@@ -67,6 +67,7 @@
 				light.position.set( 0, 1, 0 );
 				scene.add( light );
 
+				/*TABLE*/
 
 				var table_dimx = 100;
 				var table_dimy = 10;
@@ -94,13 +95,13 @@
 				var tableleg1Mesh = new THREE.Mesh(tableleg1);
 				tableleg1Mesh.position.set( table_posx-40, table_posy-40, table_posz+75 );
 
-				var tableleg2Mesh = new THREE.Mesh(tableleg1);
+				var tableleg2Mesh = new THREE.Mesh(tableleg2);
 				tableleg2Mesh.position.set( table_posx+40, table_posy-40, table_posz+75 );
 
-				var tableleg3Mesh = new THREE.Mesh(tableleg1);
+				var tableleg3Mesh = new THREE.Mesh(tableleg3);
 				tableleg3Mesh.position.set( table_posx-40, table_posy-40, table_posz-75 );
 
-				var tableleg4Mesh = new THREE.Mesh(tableleg1);
+				var tableleg4Mesh = new THREE.Mesh(tableleg4);
 				tableleg4Mesh.position.set( table_posx+40, table_posy-40, table_posz-75 );
 
 				tableMesh.updateMatrix();
@@ -109,19 +110,28 @@
 				tableleg1Mesh.updateMatrix();
 				geometry.merge(tableleg1Mesh.geometry, tableleg1Mesh.matrix);
 
-				tableleg2Mesh.updateMatrix(); // as needed
+				tableleg2Mesh.updateMatrix();
 				geometry.merge(tableleg2Mesh.geometry, tableleg2Mesh.matrix);
 
-				tableleg3Mesh.updateMatrix(); // as needed
+				tableleg3Mesh.updateMatrix();
 				geometry.merge(tableleg3Mesh.geometry, tableleg3Mesh.matrix);
 
-				tableleg4Mesh.updateMatrix(); // as needed
+				tableleg4Mesh.updateMatrix();
 				geometry.merge(tableleg4Mesh.geometry, tableleg4Mesh.matrix);
 
 				var mesh = new THREE.Mesh(geometry, material);
 				scene.add(mesh);
 				objects.push(mesh);
 
+
+				// materials = [];
+				// materials.push( tree_obj.materials[0] );
+				// materials.push( material );
+				// mesh = new THREE.Mesh( new_geo, new THREE.MeshFaceMaterial( materials ) );
+
+				/*TABLE*/
+
+				/*BOOK*/
 				var book_dimx = 30;
 				var book_dimy = 8;
 				var book_dimz = 49.9;
@@ -129,51 +139,17 @@
 				var book_posy = 0;
 				var book_posz = 0;
 
-				var map = new THREE.TextureLoader().load( 'owntextures/book_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
-
-				//BOOK
-				object = new THREE.Mesh( new THREE.BoxGeometry( book_dimx, book_dimy, book_dimz), material );
+				var bookTopTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/book_texture.jpg') } );			
+				var bookSpineTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/bookspine_texture.jpg') } );
+				var bookSideTexture = new THREE.MeshPhongMaterial(  { map: THREE.ImageUtils.loadTexture('owntextures/bookside_texture.jpg') } );
+			    var bookTextureArray = [bookSideTexture, bookSpineTexture, bookTopTexture,  bookSpineTexture, bookSideTexture, bookSideTexture];	  
+			    var bookTextureMesh = new THREE.MeshFaceMaterial( bookTextureArray );
+				
+				object = new THREE.Mesh( new THREE.BoxGeometry( book_dimx, book_dimy, book_dimz), bookTextureMesh );
 				object.position.set( book_posx, book_posy, book_posz);
 				scene.add( object );
-
-				var map = new THREE.TextureLoader().load( 'owntextures/bookspine_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
-
-				//BOOK SPINE
-				object = new THREE.Mesh( new THREE.BoxGeometry( 1, 8, 50), material );
-				object.position.set( book_posx-15.5, book_posy, book_posz);
-				scene.add( object );
-
-				//BOOK BACKCOVER
-				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 0.1, 50), material );
-				object.position.set( book_posx, book_posy-4, book_posz);
-				scene.add( object );
-
-
-				var map = new THREE.TextureLoader().load( 'owntextures/bookside_texture.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-				var material = new THREE.MeshLambertMaterial( { map: map, side: THREE.DoubleSide } );
-
-				//BOOK SIDES
-				object = new THREE.Mesh( new THREE.BoxGeometry( 0.1, 7.5, 50), material );
-				object.position.set( book_posx+15, book_posy, book_posz);
-				scene.add( object );
-
-				//BOOK SIDES
-				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 7.5, 0.1), material );
-				object.position.set( book_posx, book_posy, book_posz-24.95);
-				scene.add( object );
-
-				//BOOK SIDES
-				object = new THREE.Mesh( new THREE.BoxGeometry( 30, 7.5, 0.1), material );
-				object.position.set( book_posx, book_posy, book_posz+24.95);
-				scene.add( object );
+				objects.push(object);
+				/*BOOK*/
 
 
 				var bed_dimx = 149;
